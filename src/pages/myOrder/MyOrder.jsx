@@ -1,7 +1,8 @@
 import React from "react";
+import LayOut from "../../components/layOut/LayOut";
 
 const MyOrder = () => {
-  return <div>MyOrder</div>;
+  return <LayOut>MyOrder</LayOut>;
 };
 
 export default MyOrder;
