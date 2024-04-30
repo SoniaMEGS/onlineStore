@@ -1,12 +1,23 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import LayOut from "../../components/layOut/LayOut";
-import Card from "../../components/card/Card";
+import Cards from "../../components/cards/Cards.jsx";
+import { getItems } from "../../api/index.js";
 
 const Home = () => {
+  const [items, setItems] = useState(null);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const itemsResponse = await getItems();
+      setItems(itemsResponse);
+    };
+    fetchItems();
+  }, []);
+
   return (
     <LayOut>
       Home
-      <Card />
+      <Cards items={items} />
     </LayOut>
   );
 };
