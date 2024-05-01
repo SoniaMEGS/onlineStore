@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRoutes, BrowserRouter } from "react-router-dom";
+import { ShoppingCartProvider } from "../../context/ShoppingCartContext.jsx";
 import Home from "../home/Home.jsx";
 import MyAccount from "../myAccount/MyAccount.jsx";
 import MyOrders from "../myOrders/MyOrders.jsx";
@@ -23,10 +24,12 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <NavBar />
-      <AppRoutes />
-    </BrowserRouter>
+    <ShoppingCartProvider>
+      <BrowserRouter>
+        <NavBar />
+        <AppRoutes />
+      </BrowserRouter>
+    </ShoppingCartProvider>
   );
 }
 

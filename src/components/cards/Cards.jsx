@@ -3,7 +3,6 @@ import Card from "../card/Card";
 
 const Cards = (props) => {
   const { items } = props;
-  console.log(items.length > 0);
   return (
     <div className="w-full max-w-screen-lg grid gap-12 grid-cols-4">
       {items?.map(({ title, id, category, image, price }) => (

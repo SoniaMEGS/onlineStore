@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext.jsx";
 
 const Card = (props) => {
   const { name, id, category, image, price } = props;
+  const { count, setCount } = useContext(ShoppingCartContext);
   return (
     <div className="w-56 h-60 bg-white rounded-lg cursor-pointer border border-gray-400 p-4">
       <figure className="relative rounded-lg mb-4 w-full h-4/5">
@@ -13,7 +15,10 @@ const Card = (props) => {
           src={image}
           alt={name}
         />
-        <div className="absolute -top-4 -right-4 m-1 flex justify-center items-center bg-gray-200 w-6 h-6 rounded-full">
+        <div
+          className="absolute -top-4 -right-4 m-1 flex justify-center items-center bg-gray-200 w-6 h-6 rounded-full"
+          onClick={() => setCount(count + 1)}
+        >
           +
         </div>
       </figure>
