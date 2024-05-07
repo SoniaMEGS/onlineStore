@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { FiShoppingCart } from "react-icons/fi";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext.jsx";
 
 const NavBar = () => {
   const { count, setCount } = useContext(ShoppingCartContext);
   const activeStyle = "underline underline-offset-4";
   return (
-    <nav className="w-full flex justify-between items-center p-4 fixed z-10 top-0 text-sm font-light bg-white">
+    <nav className="w-full flex justify-between items-center p-4 fixed z-10 top-0 text-lg font-light bg-white">
       <ul className="flex items-center gap-4">
-        <li className="font-semibold text-lg">
+        <li className="font-semibold text-xl">
           <NavLink to="/">Shopi</NavLink>
         </li>
         <li>
@@ -87,8 +88,12 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li>
-          Shopping Cart
-          <span>{count}</span>
+          <div className="relative ">
+            <FiShoppingCart className="w-5 h-5" />
+            <p className="absolute -top-2 -right-2 bg-black border-none border-black rounded-full w-4 h-4 text-xs font-medium text-white flex justify-center items-center">
+              {count}
+            </p>
+          </div>
         </li>
       </ul>
     </nav>
