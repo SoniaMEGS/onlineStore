@@ -11,11 +11,38 @@ const Card = (props) => {
     isProductDetailOpen,
     productToShow,
     setProductToShow,
+    shoppingCartProducts,
+    setShoppingCartProducts,
+    isCheckoutSideMenuOpen,
+    openCheckoutSideMenu,
+    closeCheckoutSideMenu,
   } = useContext(ShoppingCartContext);
 
   const showProduct = (productData) => {
     openProductDetail();
     setProductToShow(productData);
+  };
+
+  const addProductsToCart = (productData) => {
+    setCount(count + 1);
+    const existingProductIndex = shoppingCartProducts.findIndex(
+      (product) => product.id === productData.id
+    );
+    console.log(existingProductIndex);
+
+    if (existingProductIndex !== -1) {
+      const updatedShoppingCartProducts = [...shoppingCartProducts];
+      updatedShoppingCartProducts[existingProductIndex].qty += 1;
+      setShoppingCartProducts(updatedShoppingCartProducts);
+    } else {
+      const productWithQty = { ...productData, qty: 1 };
+      const shoppingCartProductsCopy = [
+        ...shoppingCartProducts,
+        productWithQty,
+      ];
+      setShoppingCartProducts(shoppingCartProductsCopy);
+    }
+    openCheckoutSideMenu();
   };
 
   return (
@@ -33,8 +60,10 @@ const Card = (props) => {
           }
         />
         <CiCirclePlus
-          className="absolute -top-4 -right-4 m-1 cursor-pointer flex justify-center items-center w-6 h-6"
-          onClick={() => setCount(count + 1)}
+          className="absolute -top-4 -right-4 m-1 cursor-pointer bg-white rounded-full flex justify-center items-center w-6 h-6"
+          onClick={() =>
+            addProductsToCart({ name, id, category, image, price, description })
+          }
         />
       </figure>
       <p className="flex justify-between items-center gap-8">
