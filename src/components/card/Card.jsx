@@ -28,14 +28,19 @@ const Card = (props) => {
     const existingProductIndex = shoppingCartProducts.findIndex(
       (product) => product.id === productData.id
     );
-    console.log(existingProductIndex);
 
     if (existingProductIndex !== -1) {
       const updatedShoppingCartProducts = [...shoppingCartProducts];
       updatedShoppingCartProducts[existingProductIndex].qty += 1;
+      updatedShoppingCartProducts[existingProductIndex].totalPrice +=
+        productData.price;
       setShoppingCartProducts(updatedShoppingCartProducts);
     } else {
-      const productWithQty = { ...productData, qty: 1 };
+      const productWithQty = {
+        ...productData,
+        qty: 1,
+        totalPrice: productData.price,
+      };
       const shoppingCartProductsCopy = [
         ...shoppingCartProducts,
         productWithQty,
@@ -47,18 +52,18 @@ const Card = (props) => {
 
   return (
     <div className="w-56 h-60 bg-white rounded-lg  border border-gray-400 p-4">
-      <figure className="relative rounded-lg mb-4 w-full h-4/5">
-        <span className="absolute bottom-0 left-0 m-1 px-4 py-1 bg-gray-200 bg-opacity-90 rounded-full text-black text-sm">
-          {category}
-        </span>
+      <figure className="relative rounded-lg mb-4 w-full h-4/5 flex justify-center">
         <img
-          className="w-full h-full rounded-lg cursor-pointer object-fill"
+          className="w-auto h-full rounded-lg cursor-pointer object-fill"
           src={image}
           alt={name}
           onClick={() =>
             showProduct({ name, id, category, image, price, description })
           }
         />
+        <span className="absolute bottom-0 left-0 m-1 px-4 py-1 bg-gray-200 bg-opacity-90 rounded-full text-black text-sm">
+          {category}
+        </span>
         <CiCirclePlus
           className="absolute -top-4 -right-4 m-1 cursor-pointer bg-white rounded-full flex justify-center items-center w-6 h-6"
           onClick={() =>

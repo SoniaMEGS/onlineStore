@@ -1,19 +1,32 @@
 import React, { useContext } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext.jsx";
+import { totalAmount } from "../../utils/index.js";
+import OrderCards from "../orderCards/OrderCards.jsx";
 
 const CheckoutSideMenu = () => {
   const {
     count,
     setCount,
-    closeProductDetail,
-    isProductDetailOpen,
-    productToShow,
-    setProductToShow,
+    shoppingCartProducts,
+    setShoppingCartProducts,
     isCheckoutSideMenuOpen,
-    openCheckoutSideMenu,
     closeCheckoutSideMenu,
+    order,
+    setOrder,
   } = useContext(ShoppingCartContext);
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      products: shoppingCartProducts,
+      totalProducts: count,
+      totalPrice: totalAmount(shoppingCartProducts),
+    };
+    setOrder((prevOrder) => [...prevOrder, orderToAdd]);
+    setShoppingCartProducts([]);
+    setCount(0);
+  };
+  console.log(order);
 
   return (
     <aside
@@ -27,17 +40,20 @@ const CheckoutSideMenu = () => {
           <IoCloseCircleOutline className="h-6 w-6 cursor-pointer" />
         </figure>
       </div>
-      {/* <figure className="rounded-lg mb-4 w-full h-auto flex justify-center">
-        <img
-          src={productToShow.image}
-          alt=""
-          className="w-3/5 h-auto rounded-lg"
-        />
-      </figure>
-      <p className="flex flex-col gap-2 ">
-        <span className="font-medium text-2xl">$ {productToShow.price}</span>
-        <span className="font-medium text-md">{productToShow.name}</span>
-      </p> */}
+      <OrderCards shoppingCartProducts={shoppingCartProducts} />
+      <div className="absolute bottom-2 w-[calc(360px-32px)] p-2 bg-white flex items-center justify-between">
+        <p className="">
+          <span className="text-lg font-medium">
+            Total amount: ${totalAmount(shoppingCartProducts)}
+          </span>
+        </p>
+        <button
+          className="border py-1 px-2 rounded-lg bg-black text-white"
+          onClick={() => handleCheckout()}
+        >
+          Checkout
+        </button>
+      </div>
     </aside>
   );
 };
