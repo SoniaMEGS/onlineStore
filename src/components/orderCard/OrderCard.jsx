@@ -10,7 +10,7 @@ const OrderCard = (props) => {
         <img
           src={image}
           alt={name}
-          className="w-auto h-20 rounded-lg cursor-pointer object-fill"
+          className="w-auto h-20 rounded-lg object-fill"
         />
       </figure>
       <div className="w-4/6 flex items-center gap-2 ">
@@ -23,12 +23,16 @@ const OrderCard = (props) => {
           <span className="text-lg font-medium">${totalPrice}</span>
         </p>
       </div>
-      <div className=" absolute -top-1 left-0  flex justify-end">
-        <IoCloseCircleOutline
-          className="cursor-pointer bg-white rounded-full flex justify-center items-center w-5 h-5"
-          onClick={() => handleDelete(id)}
-        />
-      </div>
+      {handleDelete ? (
+        <div className=" absolute -top-1 left-0  flex justify-end">
+          <IoCloseCircleOutline
+            className="cursor-pointer bg-white rounded-full flex justify-center items-center w-5 h-5"
+            onClick={() => handleDelete(id)}
+          />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

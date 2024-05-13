@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import LayOut from "../../components/layOut/LayOut";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext.jsx";
 
 const MyOrders = () => {
-  return <LayOut>MyOrders</LayOut>;
+  const {
+    count,
+    setCount,
+    shoppingCartProducts,
+    setShoppingCartProducts,
+    isCheckoutSideMenuOpen,
+    closeCheckoutSideMenu,
+    order,
+    setOrder,
+  } = useContext(ShoppingCartContext);
+  return <LayOut>MyOrderss</LayOut>;
 };
 
 export default MyOrders;

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext.jsx";
 import { totalAmount } from "../../utils/index.js";
@@ -24,9 +25,9 @@ const CheckoutSideMenu = () => {
     };
     setOrder((prevOrder) => [...prevOrder, orderToAdd]);
     setShoppingCartProducts([]);
+    closeCheckoutSideMenu();
     setCount(0);
   };
-  console.log(order);
 
   return (
     <aside
@@ -47,12 +48,14 @@ const CheckoutSideMenu = () => {
             Total amount: ${totalAmount(shoppingCartProducts)}
           </span>
         </p>
-        <button
-          className="border py-1 px-2 rounded-lg bg-black text-white"
-          onClick={() => handleCheckout()}
-        >
-          Checkout
-        </button>
+        <Link to="/myOrders/last">
+          <button
+            className="border py-1 px-2 rounded-lg bg-black text-white"
+            onClick={() => handleCheckout()}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
     </aside>
   );
