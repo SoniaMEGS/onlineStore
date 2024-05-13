@@ -22,6 +22,7 @@ const CheckoutSideMenu = () => {
       products: shoppingCartProducts,
       totalProducts: count,
       totalPrice: totalAmount(shoppingCartProducts),
+      date: new Date().toLocaleDateString(),
     };
     setOrder((prevOrder) => [...prevOrder, orderToAdd]);
     setShoppingCartProducts([]);
