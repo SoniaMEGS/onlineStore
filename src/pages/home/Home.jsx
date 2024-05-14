@@ -11,7 +11,6 @@ const Home = () => {
 
   const handleSearch = (event) => {
     const searchValue = event.target.value;
-    console.log(searchValue);
     setSearchByTitle(searchValue);
   };
 

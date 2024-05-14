@@ -4,9 +4,9 @@ import OrdersCard from "../ordersCard/OrdersCard";
 
 const OrdersCards = (props) => {
   const { order } = props;
-  console.log(order);
+
   return (
-    <div className="w-1/2">
+    <div className="w-1/2 flex flex-col gap-4">
       {order?.map(({ totalPrice, totalProducts, date }, index) => (
         <Link key={index} to={`/myOrders/${index}`}>
           <OrdersCard

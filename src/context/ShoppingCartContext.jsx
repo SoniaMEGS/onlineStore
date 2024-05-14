@@ -13,6 +13,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const [shoppingCartProducts, setShoppingCartProducts] = useState([]);
   const [order, setOrder] = useState([]);
   const [searchByTitle, setSearchByTitle] = useState(null);
+  const [searchByCategory, setSearchByCategory] = useState(null);
 
   const openProductDetail = () => setIsProductDetailOpen(true);
   const closeProductDetail = () => setIsProductDetailOpen(false);
@@ -29,14 +30,32 @@ export const ShoppingCartProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    searchByTitle
+    searchByTitle && searchByCategory
+      ? setFilteredItems(
+          filteredItemsByTitleAndCategory(items, searchByCategory)
+        )
+      : searchByTitle
       ? setFilteredItems(filteredItemsByTitle(items, searchByTitle))
+      : searchByCategory
+      ? setFilteredItems(filteredItemsByCategory(items, searchByCategory))
       : setFilteredItems(null);
-  }, [items, searchByTitle]);
+  }, [items, searchByTitle, searchByCategory]);
 
-  console.log(filteredItems);
   const filteredItemsByTitle = (items, searchByTitle) => {
     return items?.filter((item) =>
+      item?.title?.toLowerCase().includes(searchByTitle.toLowerCase())
+    );
+  };
+
+  const filteredItemsByCategory = (items, searchByCategory) => {
+    return items?.filter(
+      (item) => item?.category?.toLowerCase() === searchByCategory.toLowerCase()
+    );
+  };
+
+  const filteredItemsByTitleAndCategory = (items, searchByCategory) => {
+    const categoryFiltered = filteredItemsByCategory(items, searchByCategory);
+    return categoryFiltered.filter((item) =>
       item?.title?.toLowerCase().includes(searchByTitle.toLowerCase())
     );
   };
@@ -64,6 +83,8 @@ export const ShoppingCartProvider = ({ children }) => {
         setSearchByTitle,
         filteredItems,
         setFilteredItems,
+        searchByCategory,
+        setSearchByCategory,
       }}
     >
       {children}

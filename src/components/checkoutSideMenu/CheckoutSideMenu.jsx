@@ -15,6 +15,8 @@ const CheckoutSideMenu = () => {
     closeCheckoutSideMenu,
     order,
     setOrder,
+    setSearchByTitle,
+    setSearchByCategory,
   } = useContext(ShoppingCartContext);
 
   const handleCheckout = () => {
@@ -27,6 +29,8 @@ const CheckoutSideMenu = () => {
     setOrder((prevOrder) => [...prevOrder, orderToAdd]);
     setShoppingCartProducts([]);
     closeCheckoutSideMenu();
+    setSearchByCategory(null);
+    setSearchByTitle(null);
     setCount(0);
   };
 

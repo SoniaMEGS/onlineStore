@@ -4,7 +4,7 @@ import { ShoppingCartContext } from "../../context/ShoppingCartContext.jsx";
 
 const OrderCardsLast = (props) => {
   const { order, index } = props;
-  console.log(order);
+
   const { setShoppingCartProducts } = useContext(ShoppingCartContext);
 
   return (
